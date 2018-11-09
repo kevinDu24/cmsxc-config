@@ -1,0 +1,6 @@
+server:
+  port: ${server-port:9031}
+
+file:
+  newsImgPath: /cmsxc/newsImg/
+  requestNewsImgPath: http://192.168.1.136:9021/api/system/file/download/newsImg/

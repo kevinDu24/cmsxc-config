@@ -1,0 +1,11 @@
+server:
+  port: ${server-port:9001}
+
+
+cmsxc:
+  web:
+    client:
+      clientId: leadu_cms_web
+      clientSecret: leadu_cms_web_1
+      grantType: password
+

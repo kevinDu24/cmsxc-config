@@ -1,0 +1,133 @@
+spring:
+  datasource:
+    url: jdbc:mysql://10.10.1.150:3306/cmsxc?useUnicode=true&characterEncoding=UTF-8
+    username: cmsxc
+    password: Leadu%$2vb#
+    driver-class-name: com.mysql.jdbc.Driver
+    max-active: 50
+    #该选项用来验证数据库连接的有效性
+    validation-query: select 1
+    #定时检测连接池中的连接是否有效 如果无效则从线程池中丢弃
+    test-while-idle: true
+    test-on-borrow: false
+    time-between-eviction-runs-millis: 18800
+  redis:
+    database: 1
+    host: 10.10.1.150
+    port: 6379
+    pool:
+      max-active: 8
+      max-wait: 8
+      min-idle: 0
+      max-idle: 8
+  jackson:
+    time-zone: GMT+8
+  http:
+    multipart:
+      maxFileSize: 50Mb
+      maxRequestSize: 80Mb
+
+hystrix:
+  command:
+     default:
+      execution:
+         isolation:
+          thread:
+             timeoutInMilliseconds: 600000 #缺省为1000
+  threadpool:
+    default:
+     coreSize: 3000 #缺省为10
+
+mybatis:
+  type-aliases-package: cn.com.leadu.cmsxc.pojo.system.entity,cn.com.leadu.cmsxc.pojo.appuser.entity
+  mapper-locations: classpath*:mapper/**/*.xml
+  configuration:
+    mapUnderscoreToCamelCase: true
+    jdbc-type-for-null: varchar
+
+
+mapper:
+  mappers:
+   -  cn.com.leadu.cmsxc.data.base.config.BaseDao
+  not-empty: false
+  before: true
+  identity: MYSQL
+
+
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
+
+page:
+  pageSize: 10
+
+
+web:
+  check:
+    token:
+      url: http://cmsxc-c-oauth2/oauth/check_token
+  client:
+    id: leadu_cms_web
+    secret: leadu_cms_web_1
+  login:
+    user:
+      header: access-user
+  chain:
+    header: access-chain
+  #/info,/health 是供monitor项目监控项目状态所用,部署到生产环境上时 nginx需要将两个端口屏蔽 不允许外网访问
+  notAuthUrl: /info,/health,/api/auth/oauth/**,/api/appuser/system/appCheck/**,/api/appuser/system/sendCode/**,/api/appuser/system/sendCodeFindPassword/**,/api/appuser/system/findBackPassword/**,/api/appuser/system/register/**,/api/appuser/vehicle/getNormalCount/**,/api/appuser/information/getInformation/**,/api/appuser/information/getHomeFinishInfo/**,/recovery_user/**,/nominee_user/**,/authorization/**,/api/system/file/download/**,/api/appuser/authorization/download/**,/api/assistant/file/download/**,/api/appuser/platescan/download/**,/api/appuser/file/download/**,/api/appuser/system/logout/**,/api/appuser/system/pushNewestDeviceToken/**
+  app:
+    header:
+      client: client
+      version: version
+
+#异常信息是否发送随机码
+syserror:
+  showcode: N
+
+cmsxc:
+  feigns:
+    serverNames:
+      cmsZSystem: cmsxc-z-system
+      cmsCAgent: cmsxc-c-agent
+      cmsZAppUser: cmsxc-z-appuser
+      cmsZCore: cmsxc-z-core
+
+ribbon:
+  ConnectTimeout: 600000
+  ReadTimeout: 600000
+  eager-load:
+    enabled: true
+    clients: cmsxc-z-system,cmsxc-c-agent,cmsxc-z-appuser,cmsxc-z-assistant
+
+etonenetParam:
+  mtUrl: http://esms100.10690007.net/sms/mt
+  command: MT_REQUEST
+  spid: 9686
+  sppassword: iWmn0ddP
+  spsc: 00
+  sa: 10657109053657
+  haltPhoneNum: 18055313782
+
+logging:
+  level:
+    cn:
+      com:
+        leadu: debug
+
+request:
+  coreSystemUrl: http://116.228.224.60:8080/TMDH
+  gpsSystemUrl: http://222.73.56.28
+  qsccUrl: 222.73.56.26:8876
+  kilometresUrl: http://api.map.baidu.com/routematrix/v2/driving
+
+mail:
+  host: c1.icoremail.net
+  protocol: smtp
+  auth: true
+  port: 25
+  address: shouquan@xftmleasing.com
+  pwd: Leasing123
+  cc: lingling@xftmleasing.com

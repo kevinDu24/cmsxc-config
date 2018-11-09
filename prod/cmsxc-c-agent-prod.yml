@@ -1,0 +1,21 @@
+server:
+  port: ${server-port:9021}
+
+zuul:
+  sensitiveHeaders:
+  routes:
+    user:
+      path: /api/system/**
+      service-id : cmsxc-z-system
+    oauth2:
+      path: /api/auth/**
+      service-id: cmsxc-c-oauth2
+    appuser:
+      path: /api/appuser/**
+      service-id: cmsxc-z-appuser
+    assistant:
+      path: /api/assistant/**
+      service-id: cmsxc-z-assistant
+  ribbon:
+    eager-load:
+      enabled: true

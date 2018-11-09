@@ -1,0 +1,67 @@
+server:
+  port: ${server-port:9090}
+
+spring:
+  datasource:
+    url: jdbc:mysql://10.10.1.150:3306/cmsxc?useUnicode=true&characterEncoding=UTF-8
+    username: cmsxc
+    password: Leadu%$2vb#
+    driver-class-name: com.mysql.jdbc.Driver
+    max-active: 50
+    #该选项用来验证数据库连接的有效性
+    validation-query: select 1
+    #定时检测连接池中的连接是否有效 如果无效则从线程池中丢弃
+    test-while-idle: true
+    test-on-borrow: false
+    time-between-eviction-runs-millis: 18800
+  redis:
+    database: 1
+    host: 10.10.1.150
+    port: 6379
+    pool:
+      max-active: 8
+      max-wait: 8
+      min-idle: 0
+      max-idle: 8
+
+hystrix:
+  command:
+     default:
+      execution:
+         isolation:
+          thread:
+             timeoutInMilliseconds: 20000 #缺省为1000
+  threadpool:
+    default:
+     coreSize: 50 #缺省为10
+
+mybatis:
+  type-aliases-package: com.fengbang.microservice.entity,com.fengbang.microservice.entity.flow
+  mapper-locations: classpath*:mapper/*.xml
+  configuration:
+    mapUnderscoreToCamelCase: true
+    jdbc-type-for-null: varchar
+
+mapper:
+  mappers:
+    - cn.com.leadu.cmsxc.oauth2.config.CmsOauth2BaseDao
+  not-empty: false
+  before: true
+  identity: MYSQL
+
+
+pagehelper:
+  helperDialect: oracle
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
+
+page:
+  pageSize: 10
+
+
+token:
+  time:
+    seconds:
+      access: 60
+      refresh: 90

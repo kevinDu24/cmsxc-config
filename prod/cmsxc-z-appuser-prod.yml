@@ -1,0 +1,16 @@
+server:
+  port: ${server-port:8082}
+
+file:
+  cluePath: /cmsxc/clue/
+  requestCluePath: http://222.73.56.13:9020/api/appuser/platescan/download/
+  authorizationPath: /cmsxc/authorization/
+  requestAuthorizationPath: http://222.73.56.13:9020/api/appuser/file/download/apply/
+  photoPath: /cmsxc/photo/
+  requestPhotoPath: http://222.73.56.13:9020/api/appuser/file/download/photo/
+  recordPath: /cmsxc/record/
+  requestRecordPath: http://222.73.56.13:9020/api/appuser/file/download/record/
+  todayInformationPath: /cmsxc/todayinformation/
+  requesttodayInformationPath: http://222.73.56.13:9020/api/appuser/file/download/
+  recoveryfinishPath: /cmsxc/recoveryfinish/
+  requestrecoveryFinishPath: http://192.168.1.181:9021/api/appuser/file/download/recoveryfinish/

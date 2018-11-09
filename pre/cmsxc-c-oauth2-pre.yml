@@ -1,0 +1,60 @@
+server:
+  port: ${server-port:9090}
+
+spring:
+  datasource:
+    url: jdbc:mysql://192.168.1.136:3306/cmsxchu?useUnicode=true&characterEncoding=UTF-8
+    username: root
+    password: Leadu2016#
+    driver-class-name: com.mysql.jdbc.Driver
+  redis:
+    database: 1
+    host: 192.168.1.136
+    port: 6379
+    pool:
+      max-active: 8
+      max-wait: 8
+      min-idle: 0
+      max-idle: 8
+
+hystrix:
+  command:
+     default:
+      execution:
+         isolation:
+          thread:
+             timeoutInMilliseconds: 20000 #缺省为1000
+  threadpool:
+    default:
+     coreSize: 50 #缺省为10
+
+mybatis:
+  type-aliases-package: com.fengbang.microservice.entity,com.fengbang.microservice.entity.flow
+  mapper-locations: classpath*:mapper/*.xml
+  configuration:
+    mapUnderscoreToCamelCase: true
+    jdbc-type-for-null: varchar
+
+mapper:
+  mappers:
+    - cn.com.leadu.cmsxc.oauth2.config.CmsOauth2BaseDao
+  not-empty: false
+  before: true
+  identity: MYSQL
+
+
+pagehelper:
+  helperDialect: oracle
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
+
+page:
+  pageSize: 10
+
+
+token:
+  time:
+    seconds:
+      access: 60
+      refresh: 90
